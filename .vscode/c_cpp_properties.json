@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "name": "Win32",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/usr/x86_64-w64-mingw32/include",
+        "/usr/x86_64-w64-mingw32/include/c++/11",
+        "/usr/lib/gcc/x86_64-w64-mingw32/11/include"
+      ],
+      "defines": [
+        "_WIN32",
+        "_WIN64"
+      ],
+      "compilerPath": "/usr/bin/x86_64-w64-mingw32-gcc",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "linux-gcc-x64"
+    }
+  ],
+  "version": 4
+}
