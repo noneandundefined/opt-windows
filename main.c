@@ -1,5 +1,6 @@
 #include "clear_cache.h"
 #include "services.h"
+#include <stdlib.h>
 
 int main(void)
 {
