@@ -15,7 +15,7 @@ int activate()
 {
     printf("ACTIVATE Windows (product key)...\n");
 
-    char *product_key;
+    const char *product_key = NULL;
 
     DWORD productType = 0;
     if (GetProductInfo(10, 0, 0, 0, &productType))
