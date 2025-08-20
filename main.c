@@ -1,5 +1,7 @@
 #include "clear_cache.h"
 #include "services.h"
+#include "product_key.h"
+
 #include <stdlib.h>
 
 int main(void)
@@ -15,6 +17,8 @@ int main(void)
     int sAdobeUpdate = service_AdobeUpdate();
     int sOsppsvc = service_osppsvc();
 
+    int pkActivate = activate();
+
     system("PAUSE");
-    return (cCache || sFax || sWSearch || sWbio || sSeclogon || sSpooler || sTapiSrv || sAdobeUpdate || sOsppsvc);
+    return (cCache || sFax || sWSearch || sWbio || sSeclogon || sSpooler || sTapiSrv || sAdobeUpdate || sOsppsvc || pkActivate);
 }
