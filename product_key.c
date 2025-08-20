@@ -48,6 +48,8 @@ int activate()
         }
     }
 
+    system("C:\\Windows\\System32\\slmgr.vbs /dlv");
+
     if (product_key == NULL) {
         printf("Failed for this Windows no active products key(.\n");
         return 1;

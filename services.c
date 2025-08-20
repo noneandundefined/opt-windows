@@ -11,10 +11,11 @@ static int stop_services(const char *service_name)
         return 1;
     }
 
-    SC_HANDLE hService = OpenService(hSCM, service_name, SERVICE_STOP | SERVICE_QUERY_STATUS | SERVICE_CHANGE_CONFIG);
+    SC_HANDLE hService = OpenService(hSCM, service_name,
+                                     SERVICE_STOP | SERVICE_QUERY_STATUS | SERVICE_CHANGE_CONFIG);
     if (!hService)
     {
-        printf("Fail open service 'Fax' (%lu)\n", GetLastError());
+        printf("Fail open service '%s' (%lu)\n", service_name, GetLastError());
         CloseServiceHandle(hSCM);
         return 1;
     }
@@ -22,11 +23,15 @@ static int stop_services(const char *service_name)
     SERVICE_STATUS status;
     if (ControlService(hService, SERVICE_CONTROL_STOP, &status))
     {
-        printf("Service 'Fax' stopped\n");
+        printf("Service '%s' stopped\n", service_name);
     }
     else
     {
-        printf("Failed stopped serivce 'Fax'\n");
+        DWORD err = GetLastError();
+        if (err == ERROR_SERVICE_NOT_ACTIVE)
+            printf("Service '%s' already stopped\n", service_name);
+        else
+            printf("Failed stop service '%s' (%lu)\n", service_name, err);
     }
 
     if (ChangeServiceConfig(
@@ -38,7 +43,7 @@ static int stop_services(const char *service_name)
             NULL, NULL, NULL, NULL)) {
         printf("Service %s disabled\n", service_name);
     } else {
-        printf("Faild disabled service: %s (%lu)\n", service_name, GetLastError());
+        printf("Fail disable service '%s' (%lu)\n", service_name, GetLastError());
     }
 
     CloseServiceHandle(hService);
