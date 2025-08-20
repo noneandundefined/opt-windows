@@ -25,18 +25,22 @@ int activate()
         case PRODUCT_CORE:
             printf("Your Windows: Windows 10 Home\n");
             product_key = win_10_home_key;
+            break;
 
         case PRODUCT_PROFESSIONAL:
             printf("Your Windows: Windows 10 Pro\n");
             product_key = win_10_pro_key;
+            break;
 
         case PRODUCT_ENTERPRISE:
             printf("Your Windows: Windows 10 Enterprise\n");
             product_key = NULL;
+            break;
 
         case PRODUCT_EDUCATION:
             printf("Your Windows: Windows 10 Education\n");
             product_key = NULL;
+            break;
         
         default:
             printf("Your Windows: Undefined(");
@@ -44,16 +48,21 @@ int activate()
         }
     }
 
+    if (product_key == NULL) {
+        printf("Failed for this Windows no active products key(.\n");
+        return 1;
+    }
+
     char command[512];
 
-    snprintf(command, sizeof(command), "cscript //nologo slmgr.vbs /ipk %s", product_key);
+    snprintf(command, sizeof(command), "cscript //nologo C:\\Windows\\System32\\slmgr.vbs /ipk %s", product_key);
     if (system(command) != 0)
     {
         printf("Failed to set product key\n");
         return 1;
     }
 
-    if (system("cscript //nologo slmgr.vbs /ato") != 0)
+    if (system("cscript //nologo C:\\Windows\\System32\\slmgr.vbs /ato") != 0)
     {
         printf("Failed to activate Windows\n");
         return 1;
